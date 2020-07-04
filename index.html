@@ -3,13 +3,15 @@
         Window Title: <input type="text" name="title" />
     </form>
     <script>
+        const titleElement = document.getElementsByName("title")[0];
+
         let urlParams = new URLSearchParams(window.location.search);
         const title = urlParams.get('title');
         if (title) {
             document.title = urlParams.get('title');
+            titleElement.value = urlParams.get('title');
         }
 
-        const titleElement = document.getElementsByName("title")[0];
         titleElement.addEventListener("input", (event) => {
             document.title = titleElement.value;
 
