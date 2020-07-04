@@ -1,0 +1,24 @@
+<html>
+    <form>
+        Window Title: <input type="text" name="title" />
+    </form>
+    <script>
+        let urlParams = new URLSearchParams(window.location.search);
+        const title = urlParams.get('title');
+        if (title) {
+            document.title = urlParams.get('title');
+        }
+
+        const titleElement = document.getElementsByName("title")[0];
+        titleElement.addEventListener("input", (event) => {
+            document.title = titleElement.value;
+
+            urlParams = new URLSearchParams(window.location.search)
+            urlParams.set("title", titleElement.value);
+            var newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname + '?' + urlParams.toString();
+            window.history.pushState({
+                path: newUrl,
+            }, '', newUrl);
+        });
+    </script>
+</html>
